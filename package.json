@@ -1,0 +1,33 @@
+{
+  "name": "experimental-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/phumoonlight/experimental-api.git",
+  "author": "Phusan Moonmuang <phumoonlight@hotmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon --exec babel-node src/server",
+    "build": "babel -d dist src",
+    "start": "node dist/server"
+  },
+  "dependencies": {
+    "body-parser": "1.19.0",
+    "compression": "1.7.4",
+    "core-js": "^3.6.5",
+    "dotenv": "^8.2.0",
+    "express": "4.17.1",
+    "express-validator": "^6.6.1",
+    "mongoose": "5.10.0",
+    "regenerator-runtime": "^0.13.7"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.10.5",
+    "@babel/core": "7.11.4",
+    "@babel/node": "7.10.5",
+    "@babel/preset-env": "7.11.0",
+    "eslint": "7.7.0",
+    "eslint-config-airbnb-base": "14.2.0",
+    "eslint-plugin-import": "2.21.2",
+    "nodemon": "2.0.4"
+  }
+}
