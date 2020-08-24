@@ -1,49 +1,21 @@
 import express from 'express'
-import { TagModel } from './tags-model'
-import { TagDataModel } from './tags-data-model'
-import { saveDataValidator } from './tags-validator'
+import {
+  insertTagDataValidator,
+  registerTagValidator,
+} from './tags-validator'
+import {
+  getTags,
+  registerTag,
+  getDataByTagName,
+  insertDataByTagName,
+} from './tags-controller'
 
 const router = express.Router()
 
-router.get('/', async (req, res) => {
-  const result = await TagModel.find()
-  res.send({
-    tags: result,
-  })
-})
+router.get('/', getTags)
+router.post('/', registerTagValidator, registerTag)
 
-router.post('/', async (req, res) => {
-  const { name } = req.body
-  const tagModel = new TagModel({ name })
-  try {
-    const result = await tagModel.save()
-    res.send({
-      result,
-    })
-  } catch (error) {
-    res.send({
-      message: 'error',
-    })
-  }
-})
-
-router.get('/:tag', async (req, res) => {
-  const { tag } = req.params
-  const data = await TagDataModel.find({ tag_name: tag })
-  res.send({
-    tag_name: tag,
-    data,
-  })
-})
-
-router.post('/:tag', saveDataValidator, async (req, res) => {
-  const { tag } = req.params
-  const { data } = req.body
-  const tagDataModel = new TagDataModel({ tag_name: tag, data })
-  const result = await tagDataModel.save()
-  res.send({
-    result,
-  })
-})
+router.get('/:tag', getDataByTagName)
+router.post('/:tag', insertTagDataValidator, insertDataByTagName)
 
 export default router
