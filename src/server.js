@@ -2,12 +2,17 @@ import 'core-js/stable'
 import 'regenerator-runtime/runtime'
 import express from 'express'
 import bodyParser from 'body-parser'
-import { PORT, GITHUB_REPO_URL, AVAILABLE_ROUTES } from './config'
+import { trace } from './common/trace'
 import { TagRouter } from './features/tags'
-import './mongo'
+import { PORT, GITHUB_REPO_URL, AVAILABLE_ROUTES } from './config'
+import { connectDatabase } from './database'
+
+connectDatabase()
 
 const app = express()
+
 app.use(bodyParser.json())
+app.use(trace())
 app.use('/tags', TagRouter)
 
 app.get('/', (req, res) => res.send({
