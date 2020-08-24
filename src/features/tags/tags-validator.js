@@ -1,4 +1,4 @@
-import { param, body } from 'express-validator'
+import { param, body, header } from 'express-validator'
 import { validateRequest } from '../../common/validate-request'
 import { isObject } from '../../common/is-object'
 import { TagModel } from './tags-model'
@@ -11,7 +11,10 @@ const isRegisteredTag = async (tag) => {
 export const registerTagValidator = [
   body('tagName')
     .exists()
-    .withMessage('field required'),
+    .withMessage('field required')
+    .bail()
+    .isString()
+    .withMessage('must be type {string}'),
   body('tagDescription')
     .optional()
     .isString()
@@ -29,5 +32,12 @@ export const insertTagDataValidator = [
     .bail()
     .custom((data) => isObject(data))
     .withMessage('must be type {object}'),
+  validateRequest,
+]
+
+export const deleteTagValidator = [
+  header('deleteAuth')
+    .equals('experimental')
+    .withMessage('unauthorized'),
   validateRequest,
 ]
