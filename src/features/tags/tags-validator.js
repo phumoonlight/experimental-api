@@ -1,21 +1,33 @@
-import { param, validationResult } from 'express-validator'
+import { param, body } from 'express-validator'
+import { validateRequest } from '../../common/validate-request'
+import { isObject } from '../../common/is-object'
 import { TagModel } from './tags-model'
 
-const getValidatorHandler = () => (
-  (req, res, next) => {
-    const result = validationResult(req)
-      .formatWith((error) => `${error.location}[${error.param}]: ${error.msg}`)
-    if (result.isEmpty()) return next()
-    return res.json({ errors: result.array() })
-  }
-)
+const isRegisteredTag = async (tag) => {
+  const result = await TagModel.findOne({ tag_name: tag })
+  return result ? true : Promise.reject()
+}
 
-export const saveDataValidator = [
-  param('tag').custom(async (tag) => {
-    const result = await TagModel.findOne({ name: tag })
-    return result ? true : Promise.reject()
-  }).withMessage('unregistered tag'),
-  getValidatorHandler(),
+export const registerTagValidator = [
+  body('tagName')
+    .exists()
+    .withMessage('field required'),
+  body('tagDescription')
+    .optional()
+    .isString()
+    .withMessage('must be type {string}'),
+  validateRequest,
 ]
 
-export default saveDataValidator
+export const insertTagDataValidator = [
+  param('tag')
+    .custom(isRegisteredTag)
+    .withMessage('unregistered tag'),
+  body('data')
+    .exists()
+    .withMessage('field required')
+    .bail()
+    .custom((data) => isObject(data))
+    .withMessage('must be type {object}'),
+  validateRequest,
+]
