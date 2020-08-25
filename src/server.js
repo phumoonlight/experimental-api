@@ -2,7 +2,12 @@ import 'core-js/stable'
 import 'regenerator-runtime/runtime'
 import express from 'express'
 import bodyParser from 'body-parser'
-import { PORT, GITHUB_REPO_URL, AVAILABLE_ROUTES } from './config'
+import {
+  PORT,
+  NODE_ENV,
+  GITHUB_REPO_URL,
+  AVAILABLE_ROUTES,
+} from './config'
 import { trace } from './common/request-tracer'
 import { getTagRouter } from './features/get-tag'
 import { getTagCollectionRouter } from './features/get-tag-collection'
@@ -33,6 +38,6 @@ app.get('/', (req, res) => res.send({
 app.listen(PORT, () => {
   console.info(`
     app listening at port ${PORT}
-    env: ${process.env.NODE_ENV}
+    env: ${NODE_ENV}
   `)
 })
