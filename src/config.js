@@ -15,7 +15,7 @@ export const SERVER_URL = NODE_ENV === 'development' ? DEV_URL : PROD_URL
 
 export const MONGO_COLLECTIONS = {
   tags: 'tags',
-  tagsData: 'tags-datas',
+  tagsCollections: 'tags-collections',
 }
 
 export const AVAILABLE_ROUTES = [

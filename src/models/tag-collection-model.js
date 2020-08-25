@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 import { MONGO_COLLECTIONS } from '../config'
 
-const tagDataSchema = new mongoose.Schema({
+const tagCollectionSchema = new mongoose.Schema({
   tag_name: {
     type: String,
     index: true,
@@ -17,9 +17,9 @@ const tagDataSchema = new mongoose.Schema({
   },
 })
 
-export const TagDataModel = mongoose.model(
-  MONGO_COLLECTIONS.tagsData,
-  tagDataSchema,
+export const TagCollectionModel = mongoose.model(
+  MONGO_COLLECTIONS.tagsCollections,
+  tagCollectionSchema,
 )
 
-export default TagDataModel
+export default TagCollectionModel
