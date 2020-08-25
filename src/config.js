@@ -18,10 +18,7 @@ export const MONGO_COLLECTIONS = {
   tagsData: 'tags-data',
 }
 
-export const AVAILABLE_ROUTES = [{
-  url: `${SERVER_URL}tags`,
-  method: ['GET', 'POST'],
-}, {
-  url: `${SERVER_URL}tags/{tag}`,
-  method: ['GET', 'POST'],
-}]
+export const AVAILABLE_ROUTES = [
+  `${SERVER_URL}tags`,
+  `${SERVER_URL}tags/{tag}`,
+]
