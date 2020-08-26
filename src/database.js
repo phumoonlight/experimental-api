@@ -11,6 +11,8 @@ export const connectDatabase = () => {
   mongoose.connection.once('open', () => {
     console.info('Mongoose connection has been connected.')
   })
+
+  mongoose.connection.on('error', console.error.bind(console, 'connection error:'))
 }
 
 export default connectDatabase

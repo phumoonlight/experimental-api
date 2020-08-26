@@ -4,6 +4,6 @@ import { deleteTag } from './delete-tag-controller'
 
 const router = express.Router()
 
-router.delete('/:tag', validateRequestForDeleteTag, deleteTag)
+router.delete('/:id', validateRequestForDeleteTag, deleteTag)
 
 export default router

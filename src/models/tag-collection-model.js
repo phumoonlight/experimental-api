@@ -2,9 +2,10 @@ import mongoose from 'mongoose'
 import { MONGO_COLLECTIONS } from '../config'
 
 const tagCollectionSchema = new mongoose.Schema({
-  tag_name: {
+  tag_id: {
     type: String,
     index: true,
+    ref: MONGO_COLLECTIONS.tags,
   },
   data: {
     type: Object,

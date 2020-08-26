@@ -4,6 +4,6 @@ import { createTagCollection } from './create-tag-collection-controller'
 
 const router = express.Router()
 
-router.post('/:tag', validateRequestForCreateTagCollection, createTagCollection)
+router.post('/:id', validateRequestForCreateTagCollection, createTagCollection)
 
 export default router

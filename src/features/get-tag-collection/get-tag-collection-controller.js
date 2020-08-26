@@ -1,18 +1,33 @@
-import { TagCollectionModel } from '../../models'
+import { TagCollectionModel, TagModel } from '../../models'
+
+const SELECTED_FIELD = 'data created_at updated_at'
 
 export const getTagCollections = async (req, res) => {
   const { tag } = req.params
-  try {
-    const tagCollections = await TagCollectionModel
-      .find({ tag_name: tag })
-      .select('data')
-    res.status(200).send({
-      tag_name: tag,
-      tag_collections: tagCollections,
-    })
-  } catch (error) {
-    res.status(500).send({ error })
+  const response = {
+    status: 200,
+    body: {},
   }
+
+  try {
+    const tagDocument = await TagModel.findOne({ tag_name: tag })
+    if (tagDocument) {
+      const { _id: tagID } = tagDocument
+      const tagCollections = await TagCollectionModel
+        .find({ tag_id: tagID })
+        .select(SELECTED_FIELD)
+      response.status = 200
+      response.body.tag_collections = tagCollections
+    } else {
+      response.status = 404
+      response.body.tag_collections = []
+    }
+  } catch (error) {
+    response.status = 500
+    response.body.error = error
+  }
+
+  res.status(response.status).json(response.body)
 }
 
 export default getTagCollections

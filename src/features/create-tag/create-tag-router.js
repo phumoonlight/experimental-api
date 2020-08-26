@@ -4,6 +4,10 @@ import { createTag } from './create-tag-controller'
 
 const router = express.Router()
 
-router.post('/', validateRequestForCreateTag, createTag)
+router.post(
+  '/',
+  validateRequestForCreateTag,
+  createTag,
+)
 
 export default router

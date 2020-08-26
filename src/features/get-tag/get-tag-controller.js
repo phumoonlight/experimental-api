@@ -1,12 +1,16 @@
 import { TagModel } from '../../models'
 
 export const getTags = async (req, res) => {
+  const responseBody = {}
+  let responseStatus = 200
   try {
     const tags = await TagModel.find()
-    res.status(200).send({ tags })
+    responseBody.tags = tags
   } catch (error) {
-    res.status(500).send({ error })
+    responseBody.error = error
+    responseStatus = 500
   }
+  res.status(responseStatus).json(responseBody)
 }
 
 export default getTags

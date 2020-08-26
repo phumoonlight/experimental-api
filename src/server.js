@@ -13,7 +13,9 @@ import { getTagRouter } from './features/get-tag'
 import { getTagCollectionRouter } from './features/get-tag-collection'
 import { createTagRouter } from './features/create-tag'
 import { createTagCollectionRouter } from './features/create-tag-collection'
+import { updateTagRouter } from './features/update-tag'
 import { deleteTagRouter } from './features/delete-tag'
+import { deleteTagCollectionRouter } from './features/delete-tag-collection'
 import { connectDatabase } from './database'
 
 connectDatabase()
@@ -27,7 +29,9 @@ app.use('/tags', [
   getTagCollectionRouter,
   createTagRouter,
   createTagCollectionRouter,
+  updateTagRouter,
   deleteTagRouter,
+  deleteTagCollectionRouter,
 ])
 
 app.get('/', (req, res) => res.send({

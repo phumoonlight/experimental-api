@@ -1,17 +1,19 @@
 import { TagModel, TagCollectionModel } from '../../models'
 
 export const deleteTag = async (req, res) => {
-  const { tag } = req.params
+  const { id } = req.params
+  const responseBody = {}
+  let responseStatus = 200
   try {
-    const deleteTagResult = await TagModel.deleteOne({ tag_name: tag })
-    const deleteTagDataResult = await TagCollectionModel.deleteMany({ tag_name: tag })
-    res.status(200).send({
-      removed_tag_count: deleteTagResult.deletedCount,
-      removed_tagged_data: deleteTagDataResult.deletedCount,
-    })
+    const deletedTagResult = await TagModel.deleteOne({ _id: id })
+    const deletedTagCollectionResult = await TagCollectionModel.deleteMany({ tag_id: id })
+    responseBody.deleted_tag_count = deletedTagResult.deletedCount
+    responseBody.deleted_collection_count = deletedTagCollectionResult.deletedCount
   } catch (error) {
-    res.status(500).send({ error })
+    responseBody.error = error
+    responseStatus = 500
   }
+  res.status(responseStatus).send(responseBody)
 }
 
 export default deleteTag

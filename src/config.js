@@ -22,3 +22,15 @@ export const AVAILABLE_ROUTES = [
   `${SERVER_URL}tags`,
   `${SERVER_URL}tags/{tag}`,
 ]
+
+export const VALIDATION = {
+  restrictedTagName: 'collections',
+  badTagNameRegex: /[^a-z0-9-]/gi,
+  message: {
+    string: 'must be type {string}',
+    object: 'must be type {object}',
+    restrictedTagName: 'restricted tag name',
+    badTagName: 'bad tag name',
+    required: 'field required',
+  },
+}

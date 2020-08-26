@@ -1,15 +1,27 @@
-import { TagCollectionModel } from '../../models'
+import { TagCollectionModel, TagModel } from '../../models'
+
+const SUCCESS_RESPONSE_STATUS = 201
 
 export const createTagCollection = async (req, res) => {
-  const { tag } = req.params
+  const { id } = req.params
   const { data } = req.body
-  const tagCollectionModel = new TagCollectionModel({ tag_name: tag, data })
+  const responseBody = {}
+  let responseStatus = SUCCESS_RESPONSE_STATUS
   try {
-    const result = await tagCollectionModel.save()
-    res.status(201).send({ result })
+    const tagDocument = await TagModel.findOne({ _id: id })
+    if (tagDocument) {
+      const tagCollectionModel = new TagCollectionModel({ tag_id: id, data })
+      const createdResult = await tagCollectionModel.save()
+      responseBody.created_result = createdResult
+    } else {
+      responseBody.created_result = null
+      responseStatus = 404
+    }
   } catch (error) {
-    res.status(500).send({ error })
+    responseBody.error = error
+    responseStatus = 500
   }
+  res.status(responseStatus).send(responseBody)
 }
 
 export default createTagCollection
