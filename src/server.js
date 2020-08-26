@@ -34,7 +34,7 @@ app.use('/tags', [
   deleteTagCollectionRouter,
 ])
 
-app.get('/', (req, res) => res.send({
+app.get('/', (req, res) => res.json({
   github_repo_url: GITHUB_REPO_URL,
   routes: AVAILABLE_ROUTES,
 }))
