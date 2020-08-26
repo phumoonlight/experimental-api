@@ -13,7 +13,7 @@ export const deleteTag = async (req, res) => {
     responseBody.error = error
     responseStatus = 500
   }
-  res.status(responseStatus).send(responseBody)
+  res.status(responseStatus).json(responseBody)
 }
 
 export default deleteTag
