@@ -45,7 +45,7 @@ export const createTagBodyValidator = [
     .withMessage(VALIDATION_MESSAGE.noEmpty)
     .bail()
     .not()
-    .matches(/[^a-z0-9-]/, 'gi')
+    .matches(/[^a-zA-Z0-9]/, 'gi')
     .withMessage(VALIDATION_MESSAGE.badTagRefId),
   body(REQUEST_POST_BODY.tagName)
     .optional()
