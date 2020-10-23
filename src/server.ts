@@ -26,6 +26,7 @@ export namespace Server {
     res.status(StatusCode.successOk).json({
       author_github: Config.url.authorGithub,
       github_repo_url: Config.url.repository,
+      backoffice_url: Config.url.backoffice,
       available_routes: Config.availableRoutes,
     })
   })

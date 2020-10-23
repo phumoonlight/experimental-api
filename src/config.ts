@@ -23,10 +23,13 @@ export namespace Config {
   export const url = {
     authorGithub: 'https://github.com/phumoonlight',
     repository: 'https://github.com/phumoonlight/experimental-api',
+    backoffice: 'https://experimentalbackoffice.vercel.app/',
   }
 
   export const availableRoutes = [
     `${activeHost}/tags`,
     `${activeHost}/tags/{tag}`,
+    `${activeHost}/tagcollections`,
+    `${activeHost}/tagcollections/{id}`,
   ]
 }
